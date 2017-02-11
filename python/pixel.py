@@ -9,8 +9,10 @@ def get_pixel():
     return pyautogui.pixel(x,y)
 
 def OnKeyboardEvent(event):
-    if event.Key=='backspace':
-        print("yes")
+    if event.Key==b'v':
+        print('NO')
+    else:
+        print('yes')
 
 
 mod=pyHook.HookManager()
