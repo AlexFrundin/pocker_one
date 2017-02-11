@@ -5,14 +5,15 @@ import pythoncom
 import ctypes
 
 def get_pixel():
-    x,y=pyautogui.position()
-    return pyautogui.pixel(x,y)
+    '''x,y=pyautogui.position()
+    return pyautogui.pixel(x,y)'''
+    pyautogui.moveTo(10,10)
 
 def OnKeyboardEvent(event):
-    if event.Key==b'v':
-        print('NO')
-    else:
-        print('yes')
+    print(event.Key)
+    if event.Key=='Space':
+        get_pixel()
+    return True
 
 
 mod=pyHook.HookManager()
