@@ -10,18 +10,10 @@ def get_pixel():
 
 def OnKeyboardEvent(event):
     if event.Key=='backspace':
-        return true
-    else: False
+        print("yes")
+
 
 mod=pyHook.HookManager()
 mod.KeyAll=OnKeyboardEvent
 mod.HookKeyboard()
-pythoncom.PumpMessages(
-while True:
-    #print(msvcrt.getch())
-    # if mod.HookKeyboard():
-    #     pyautogui.moveTo(300,100)
-    #     pyautogui.click(1)
-    #     pyautogui.typewrite("Hello")
-        # '''print('yes')'''
-    print(mod.HookKeyboard())
+pythoncom.PumpMessages()
