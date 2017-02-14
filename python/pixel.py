@@ -54,6 +54,9 @@ def KeyboardSwitch(event):
     '''
     считывает сначала keyDown, а потом KeyUp
     '''
+    '''
+    ниже цикл вызывает все возможные методы объекта event
+    '''
     for item in dir(event):
         if '_' not in item:
             eval(('print("{0}= ",event.{0})').format(item))#чем заменить подобную конструкцию'''
