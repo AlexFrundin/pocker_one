@@ -2,6 +2,7 @@ from pygame_tamagochi import *
 from pygame_block import *
 from pygame_enemy import *
 from pygame_name import *
+import pygame_camers
 import pygame
 from pygame.locals import *
 import os
@@ -19,12 +20,12 @@ def main():
     field=pygame.Surface((WIN_W,WIM_H))
     field.fill(pygame.Color(BACKGROUND_COLOR))
 
-    one=Tamagochi("Ster",155,155)
+    one=Tamagochi("Hero",155,155)
 
     left=right=False
     up=down=False
     name_font=Name(one,10,10)
-    two=Enemy("asd",500,400)
+    two=Enemy("Enemy",500,400)
 
     all_object=pygame.sprite.Group()
     all_object.add(name_font)
@@ -35,15 +36,15 @@ def main():
     all_object.add(two)
 
     str_all="-"*40
-    str_bend="-"+" "*38+"-"
-    str_space=" "*40
+    str_bend="-"+" "*78+"-"
+    str_space=" "*80
     level=[
             str_space,
             str_space,
             str_space,
             str_all,
             str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,
-            str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,
+            str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,
             str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,str_bend,
             str_all
     ]
@@ -64,6 +65,17 @@ def main():
 
     done=True
     pause=False
+
+
+
+    total_level_width=len(level[0])*BLOCK_W
+    total_level_height=len(level)*BLOCK_H
+
+    print(total_level_width)
+    print(total_level_height)
+
+    camera=pygame_camers.Camera(pygame_camers.camera_configure,total_level_width,total_level_height)
+
     while done:
         timer.tick(60)
         for event in pygame.event.get():
@@ -100,11 +112,20 @@ def main():
                 right=False
 
         display_game.blit(field,(0,0))
-        one.update(left, right,up,down,all_block)
+        #one.update(left, right,up,down,all_block)
+        camera.update(one)
+
         one.setTime()
+
         name_font.update(one)
         two.update(one,all_block)
-        all_object.draw(display_game)
+        #camera.update(one)
+        one.update(left, right,up,down,all_block)
+
+        for e in all_object:
+            
+            display_game.blit(e.image, camera.apply(e))
+        #all_object.draw(display_game)
 
         #display_game.blit()
 
