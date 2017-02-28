@@ -13,7 +13,7 @@ def setPos(begin, end):
 
 def test():
     for i in setPos(10,20):
-        print (i)
+        return (i)
         time.sleep(0.5)
 
 

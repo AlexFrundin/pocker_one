@@ -27,8 +27,8 @@ class Block(sprite.Sprite):
             return
 
     def setPos(self):
-        while (self.rect.x>=x and self.rect.x<x+((len(level[0]))*20)):
-            yield ((self.rect.x+20),self.rect.y)
+        #while (self.rect.x>=x and self.rect.x<x+((len(level[0]))*20)):
+            #yield ((self.rect.x+20),self.rect.y)
         while (self.rect.x>x and self.rect.x<=x+((len(level[0]))*20)):
             yield ((self.rect.x-20), selцццf.rect.y)
 
