@@ -21,11 +21,16 @@ class Block(sprite.Sprite):
         self.image.fill(Color(self.C))
         self.rect=Rect(x,y,self.W,self.H)
 
-    def update(self, x,y):
-        self.rect=Rect(x,y,self.W,self.H)
+    def update(self):
+        for x,y in self.setPos():
+            self.rect=Rect(x,y,self.W,self.H)
+            return
 
     def setPos(self):
-        if (self.)
+        while (self.rect.x>=x and self.rect.x<x+((len(level[0]))*20)):
+            yield ((self.rect.x+20),self.rect.y)
+        while (self.rect.x>x and self.rect.x<=x+((len(level[0]))*20)):
+            yield ((self.rect.x-20), self.rect.y)
 
 
 
@@ -53,12 +58,14 @@ for row in level:
 timer=time.Clock()
 done=True
 while done:
-        timer.tick(60)
+        timer.tick(1)
         for e in event.get():
             if e.type==QUIT:
                 done=False
                 continue
         display_.blit(screen,(0,0))
+        for item in all_object:
+            item.update()
         all_object.draw(display_)
 
         display.update()
