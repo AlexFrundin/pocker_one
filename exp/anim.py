@@ -27,10 +27,13 @@ class Block(sprite.Sprite):
             return
 
     def setPos(self):
-        #while (self.rect.x>=x and self.rect.x<x+((len(level[0]))*20)):
-            #yield ((self.rect.x+20),self.rect.y)
-        while (self.rect.x>x and self.rect.x<=x+((len(level[0]))*20)):
-            yield ((self.rect.x-20), selцццf.rect.y)
+
+
+        while (self.rect.x>=self.X and self.rect.x<(self.X+((len(level[0]))*20))):
+            yield ((self.rect.x+20),self.rect.y)
+        while (self.rect.x>self.X and self.rect.x<=(self.X+((len(level[0]))*20))):
+            yield ((self.rect.x-20), self.rect.y)
+
 
 
 
@@ -66,6 +69,7 @@ while done:
         display_.blit(screen,(0,0))
         for item in all_object:
             item.update()
-        all_object.draw(display_)
+            display_.blit(item.image,)
+        #all_object.draw(display_)
 
         display.update()
