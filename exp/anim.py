@@ -20,19 +20,19 @@ class Block(sprite.Sprite):
         self.image=Surface((self.W,self.H))
         self.image.fill(Color(self.C))
         self.rect=Rect(x,y,self.W,self.H)
+        self.gen=self.setPos()
 
     def update(self):
-        for x,y in self.setPos():
-            self.rect=Rect(x,y,self.W,self.H)
-            return
+        next(self.gen)
 
     def setPos(self):
-
-
-        while (self.rect.x>=self.X and self.rect.x<(self.X+((len(level[0]))*20))):
-            yield ((self.rect.x+20),self.rect.y)
-        while (self.rect.x>self.X and self.rect.x<=(self.X+((len(level[0]))*20))):
-            yield ((self.rect.x-20), self.rect.y)
+        while True:
+            while (self.rect.x>=0 and self.rect.x<390):
+                self.rect.x+=5
+                yield
+            while (self.rect.x>5 and self.rect.x<=410):
+                self.rect.x-=5
+                yield
 
 
 
@@ -61,7 +61,7 @@ for row in level:
 timer=time.Clock()
 done=True
 while done:
-        timer.tick(1)
+        timer.tick(20)
         for e in event.get():
             if e.type==QUIT:
                 done=False
@@ -69,7 +69,7 @@ while done:
         display_.blit(screen,(0,0))
         for item in all_object:
             item.update()
-            display_.blit(item.image,)
-        #all_object.draw(display_)
+            #display_.blit(item.image,(item.rect.x,item.rect.y))
+        all_object.draw(display_)
 
         display.update()

@@ -6,8 +6,8 @@ level=[[0,0,0,0,0,0,0,1,0,0,0,0,0,0],
 
 class Block(pygame.sprite.Sprite):
     def __init__ (self,x,y):
-        #super().__init__(self)
-        pygame.sprite.Sprite.__init__(self)
+        super().__init__()
+        #pygame.sprite.Sprite.__init__(self)
         self.H=20
         self.W=20
         self.X=x
@@ -21,6 +21,7 @@ class Block(pygame.sprite.Sprite):
         self.name=' '.join((str(x),str(y)))
 
     def update(self):
+        #если использовать next(self.setPos) то генератор работает точно не как маятник((
         next(self.gen)
 
     def __str__(self):
