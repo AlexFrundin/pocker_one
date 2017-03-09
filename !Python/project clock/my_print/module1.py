@@ -10,10 +10,10 @@ class Window (QWidget):
         self.calcPeriod()
         #это часть мне не особа понятна
         self.timer1=self.startTimer(1000)
-        
+
     def timerEvent(self, event):
         self.calcPeriod()
-     #выше специальная функция тоже не ясна   
+     #выше специальная функция тоже не ясна
     def calcPeriod(self):
         time1=time()
         dateX = (2016, 1, 1, 0, 0,0,4,1,0)
