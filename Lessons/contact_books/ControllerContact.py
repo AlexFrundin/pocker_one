@@ -3,6 +3,7 @@ from ViewContact import *
 from XML_Mode import MakeTree
 from DOM_parser import ParserTree_DOM
 from Parser_sax import parser_sax
+from Parser_STAX import parserStax
 import os
 
 class Controller():
@@ -28,13 +29,17 @@ class Controller():
     def save(self):
         pass
 
-    def load_task(self):
+    def loadSTAX(self):
+        for item in parserStax(self, ('name','number')):
+            self.create(*item)
+
+    def loadSAX(self):
         print(parser_sax(self))
 
     def saveXML(self):
         MakeTree(self)
 
-    def loadXML(self):
+    def loadDOM(self):
         for item in ParserTree_DOM(self):
             self.create(*item)
 
@@ -49,12 +54,13 @@ class Controller():
 
 
 a=Controller('one')
-
+a.loadSTAX()
+print(a)
 #a.create('Vasya','067')
 #a.create('Vasya1','0671')
 #a.create('Vasya2','0672')
 #a.saveXML()
 #a.loadXML()
 #MakeTree(a)
-a.load_task()
+#a.load_task()
 #print(a)
