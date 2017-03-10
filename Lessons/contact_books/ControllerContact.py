@@ -32,7 +32,7 @@ class Controller():
     def loadSTAX(self):
         for item in parserStax(self, ('name','number')):
             self.create(*item)
-
+#не могу вернуть с класса объект, необходимо в классе парсера использовать методы объекта,not like
     def loadSAX(self):
         print(parser_sax(self))
 
