@@ -1,6 +1,4 @@
 import xml.etree.ElementTree as ET
-
-#from ControllerContact import Controller
 import time
 
 def MakeTree(obj):

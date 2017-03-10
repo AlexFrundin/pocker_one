@@ -2,14 +2,15 @@ from  ModelContact import PhoneBook
 from ViewContact import *
 from XML_Mode import MakeTree
 from DOM_parser import ParserTree_DOM
+from Parser_sax import parser_sax
 import os
 
 class Controller():
     def __init__(self,name):
         self.name=name
         self.__contacts=PhoneBook()
-        if  os.path.exists('{}.xml'.format(name)):
-            self.loadXML()
+        #if  os.path.exists('{}.xml'.format(name)):
+            #self.loadXML()
 
 
     def create(self, name, number):
@@ -27,8 +28,8 @@ class Controller():
     def save(self):
         pass
 
-    def load(self):
-        pass
+    def load_task(self):
+        print(parser_sax(self))
 
     def saveXML(self):
         MakeTree(self)
@@ -47,7 +48,6 @@ class Controller():
         return ""
 
 
-
 a=Controller('one')
 
 #a.create('Vasya','067')
@@ -56,4 +56,5 @@ a=Controller('one')
 #a.saveXML()
 #a.loadXML()
 #MakeTree(a)
-print(a)
+a.load_task()
+#print(a)
