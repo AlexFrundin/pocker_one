@@ -3,7 +3,7 @@ import time
 import threading
 
 s=socket.socket()
-s.bind(('localhost',5000))
+s.bind(('192.168.0.200',5000))
 s.listen(5)
 #можно подключаться по telnetu
 def handle(c):
