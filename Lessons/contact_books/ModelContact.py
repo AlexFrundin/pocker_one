@@ -20,8 +20,11 @@ class PhoneBook():
     def __setitem__(self,name,number):
         if name not in self.dict:
             self.dict[name]=number
+        elif self.dict[name]!=number:
+            self.dict[name]=number
         else:
             raise KeyError
+
 
     def __len__(self):
         return len(self.dict)

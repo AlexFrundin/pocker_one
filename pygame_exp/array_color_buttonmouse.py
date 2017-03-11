@@ -1,5 +1,6 @@
 import pygame
-
+#добавить меню с цветом, возможность задавать кол-во столбцов и строк
+#размер квадртика  и возможность рисовать при протаскивании мыши
 # Define some colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -8,20 +9,20 @@ RED = (255, 0, 0)
 GREY=(100,100,100)
 
 # This sets the WIDTH and HEIGHT of each grid location
-WIDTH = 20
-HEIGHT = 20
+WIDTH = 10
+HEIGHT = 10
 
 # This sets the margin between each cell
-MARGIN = 5
+MARGIN = 1
 
 # Create a 2 dimensional array. A two dimensional
 # array is simply a list of lists.
 grid = []
-for row in range(10):
+for row in range(100):
     # Add an empty array that will hold each cell
     # in this row
     grid.append([])
-    for column in range(10):
+    for column in range(100):
         grid[row].append(0)  # Append a cell
 
 # Set row 1, cell 5 to one. (Remember rows and
@@ -32,7 +33,7 @@ for row in range(10):
 pygame.init()
 
 # Set the HEIGHT and WIDTH of the screen
-WINDOW_SIZE = [255, 255]
+WINDOW_SIZE = [800, 600]
 screen = pygame.display.set_mode(WINDOW_SIZE)
 
 # Set title of screen
@@ -73,8 +74,8 @@ while not done:
     screen.fill(BLACK)
 
     # Draw the grid
-    for row in range(10):
-        for column in range(10):
+    for row in range(100):
+        for column in range(100):
             if grid[row][column] == 0:
                 color = WHITE
             elif grid[row][column]==1:
