@@ -8,7 +8,8 @@ from pyHook import cpyHook
 class HookEvent_():
     def __init__(self, msg, time, hwnd, window_name):
         '''Initializes an event instance.'''
-        self.Message = msg
+        print("HookEvent++")
+        self.Message = 512
         self.Time = time
         self.Window = hwnd
         self.WindowName = window_name
@@ -25,13 +26,14 @@ class HookEvent_():
 class MouseEvent_(HookEvent_):
     def __init__(self, msg=512, x=0, y=0, data=1, flags=1, time=1, hwnd=1, window_name=""):
         '''Initializes an instance of the class.'''
+        print("MouseEvent++")
         HookEvent_.__init__(self, msg, time, hwnd, window_name)
         self.Position = (x,y)
         if data > 0: w = 1
         elif data < 0: w = -1
         else: w = 0
-        self.Wheel = w
-        self.Injected = flags & 0x01
+        #self.Wheel = w
+        #self.Injected = flags & 0x01
 
 class HookManager_():
     def __init__(self):
@@ -54,7 +56,11 @@ class HookManager_():
             self.mouse_hook = False
 
 
-    def MouseSwitch(self, msg, x=0, y=0, data=1, flags=1, time=1, hwnd=1, window_name=""):
+    def MouseSwitch(self, msg=512, x=0, y=0, data=1, flags=1, time=1, hwnd=1, window_name="Window"):
+        try:
+            print("1",self.mouse_funcs)
+        except:
+            print("2eroo")
         #print("msg: ",(msg))
         #print("x ",x)
         #print("y ",y)
@@ -63,6 +69,7 @@ class HookManager_():
         #print("time ",time)
         #print("hwnd ",hwnd)
         #print("window_name ",window_name)
+        print("3yea")
         event = MouseEvent_(msg, x, y, data, flags, time, hwnd, window_name)
         func = self.mouse_funcs.get(msg)
         if func:
@@ -72,8 +79,10 @@ class HookManager_():
 
     def SubscribeMouseMove(self, func):
         if func is None:
+            print("connect")
             self.disconnect(self.mouse_funcs, 0x0200)
         else:
+            print("connect")
             self.connect(self.mouse_funcs, 0x0200, func)
 
     def SubscribeMouseAll(self, func):
@@ -101,6 +110,10 @@ def onMouseEvent(event):
     print ('Wheel:',event.Wheel)
     print ('Injected:',event.Injected)
     '''
+    try:
+        print("4",event.Position)
+    except TypeError:
+        print("rror")
     return True
 
 mod=HookManager_()
