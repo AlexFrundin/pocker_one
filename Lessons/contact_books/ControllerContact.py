@@ -5,7 +5,7 @@ from DOM_parser import ParserTree_DOM
 from Parser_sax import parser_sax
 from Parser_STAX import parserStax
 import os
-from contact_DB import create_DB,loadToDB,printDB,update_DB
+from contact_DB import create_DB,loadToDB,printDB,update_DB, loadContact
 import logging
 
 
@@ -15,25 +15,46 @@ class Controller():
         self.__contacts=PhoneBook()
         if  not os.path.exists('{}.sqlite'.format(self.name)):
             create_DB(self)
+        else:
+            print('init')
+            self.loadFromDB()
         #self.log=logging
         #self.log.basicConfig(level=logging.DEBUG, filename='{}.log'.format(self.name))
         #if  os.path.exists('{}.xml'.format(name)):
             #self.loadXML()
 
+#использую при включение книги, загружаю всю инфу из бд в телефонную книгу,
+#для избежания дублирования записей в бд, так как стандртая create не проверяет
+#при добавлении есть ли уже эта инфа в бд(рекурсивное добавления -считывая инфо из бдб она ее же и добавлет)
+    def createLoadFromDB(self,name,number):
+        self.__contacts[name]=number
+#загрузка из бд
+    def loadFromDB(self):
+        for item in loadContact(self):
+            self.createLoadFromDB(*item)
 
+#для создания
     def create(self, name, number):
         try:
             self.__contacts[name]=number
-            #update_DB((name,number))
+            #update_DB(self,name,number)
         except KeyError:
             self.error_input("create")
+        else:
+            update_DB(self,name,number)
 
+#при изменении контакта будет происходить дублирование информации в бд,
+#надо добавить функцию и в бд
+#может лучше удалять базу и снова записывать при закрытии программы
     def update(self, name, number):
         try:
             self.__contacts[name]=number
-            update_DB(self,name,number)
+            #update_DB(self,name,number)
         except KeyError:
             self.error_input("create")
+        else:
+            update_DB(self,name,number)
+
 
     def delete(self,name):
         try:
@@ -64,8 +85,7 @@ class Controller():
     def get_contact(self):
         for key in sorted(self.__contacts):
             yield (key, self.__contacts[key])
-#not like
-#лучше вернуть весь список красиво, не используя print
+
     def __str__(self):
         contact=[]
         for name, number in self.get_contact():
@@ -77,16 +97,13 @@ class Controller():
 
 
 a=Controller('one')
-a.loadDOM()
 print(a)
-a.save_DB()
-print("___________________________")
-printDB(a)
 
-#a.create('Vasya1','0671')
-#a.create('Vasya2','0672')
+
+a.create('Vasya1','0671')
+a.create('Vasya2','0672')
 #a.saveXML()
 #a.loadXML()
 #MakeTree(a)
 #a.load_task()
-#print(a)
+printDB(a)

@@ -32,8 +32,8 @@ class MouseEvent_(HookEvent_):
         if data > 0: w = 1
         elif data < 0: w = -1
         else: w = 0
-        #self.Wheel = w
-        #self.Injected = flags & 0x01
+        self.Wheel = w
+        self.Injected = flags & 0x01
 
 class HookManager_():
     def __init__(self):
@@ -76,6 +76,21 @@ class HookManager_():
             return func(event)
         else:
             return True
+            '''
+        self.msg=msg
+        try:
+            self.event = MouseEvent_(msg, x, y, data, flags, time, hwnd, window_name)
+            event=self.event
+            self.msg=msg
+        except:
+            event=self.event
+        finally:
+            func = self.mouse_funcs.get(self.msg)
+            if func:
+                return func(event)
+            else:
+                return True
+
 
     def SubscribeMouseMove(self, func):
         if func is None:
