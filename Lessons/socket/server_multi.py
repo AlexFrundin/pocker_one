@@ -3,7 +3,7 @@ import time
 import threading
 
 s=socket.socket()
-s.bind(('192.168.0.200',5000))
+s.bind(('localhost',5000))
 s.listen(5)
 #можно подключаться по telnetu
 def handle(c):
@@ -12,9 +12,9 @@ def handle(c):
         #must have для закрытия не используемых сокетов
         if not data:
             c.close()
+            print("server stop")
             break
-        print(data)
-        c.sendall(data)
+        print(data.decode("utf-8"))
 
 print('server started')
 while True:
