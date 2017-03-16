@@ -9,12 +9,12 @@ def get_devices():
 def create_broadcast():
     udp_s=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     udp_s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST,1)
-    udp_s.settimeout(2)
+    udp_s.settimeout(5)
     return udp_s
 
 def update_ip():
     with create_broadcast() as flood:
-        flood.sendto("give_ip".encode('utf-8'),('255.255.255.255',4545))
+        flood.sendto("give_ip".encode('utf-8'),('192.168.3.255',4545))
 
 
 
@@ -55,3 +55,4 @@ def client(message):
 if __name__ == '__main__':
     while True:
         update_ip()
+        time.sleep(3)
