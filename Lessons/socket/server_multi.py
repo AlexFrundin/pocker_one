@@ -22,3 +22,14 @@ while True:
     print("connected",a)
     t=threading.Thread(target = handle, args=(c,))
     t.start()
+
+
+
+'''c,a=s.accept()
+if a:
+    data=c.recv(512)
+    if data.decode('utf-8').startswith("show"):
+        ip_=a[0]
+        c.close()
+s.close()
+return ip_'''

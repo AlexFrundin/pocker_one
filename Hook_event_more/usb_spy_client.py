@@ -2,6 +2,11 @@ import win32com.client
 import time
 import socket
 
+PORT_UDP=4545
+PORT_TCP_SERVER=5000
+IP=None
+PORT=None
+
 def get_devices():
     wmi=win32com.client.GetObject("winmgmts:")
     return {item.VolumeSerialNumber:(item.Name,item.VolumeName) for item in wmi.InstancesOf("Win32_LogicalDisk")}
@@ -12,14 +17,33 @@ def create_broadcast():
     udp_s.settimeout(5)
     return udp_s
 
+def data_ip():
+    ip_=None
+    port_=None
+    s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((socket.gethostbyname(socket.gethostname()), PORT_TCP_SERVER))
+    s.settimeout(2)
+    s.listen(1)
+    try:
+        c,a=s.accept()
+        data=c.recv(512)
+        if data.decode('utf-8').find('show'):
+            port_=((data.decode('utf-8').split(' ')[-1]))
+            ip_=a[0]
+            c.send("Ok".encode('utf-8'))
+            c.close()
+    except:
+        pass
+    s.close()
+    return ip_,port_
+
 def update_ip():
-    with create_broadcast() as flood:
-        flood.sendto("give_ip".encode('utf-8'),('192.168.3.255',4545))
-
-
-
-def server_for_ip():
-    pass
+    while True:
+        with create_broadcast() as flood:
+            flood.sendto("give_ip {}".format(socket.gethostbyname(socket.gethostname())).encode('utf-8'),('192.168.3.255',PORT_UDP))
+            ip_, port_ =data_ip()
+            if ip_ is not None:
+                return ip_, port_
 
 def main():
     before=get_devices()
@@ -36,23 +60,29 @@ def main():
         if drives:
             for disk in drives:
                 if flag:
-                    client((disk, "connect"))
+                    g_client((disk, "connect"))
                 else:
-                    client((disk, "disconnect"))
+                    g_client((disk, "disconnect"))
             before=after
         time.sleep(3)
 
+def g_client(message):
+    try:
+        client(message)
+    except:
+        global IP
+        global PORT
+        IP, PORT=update_ip()
+        client(message)
 
 def client(message):
+    #global IP, PORT
     s=socket.socket()
     name=socket.gethostname()
-    s.connect(("192.168.0.88",5454))
+    s.connect((IP,int(PORT)))
     message=("{}||{}||{}||{}||{}||".format(name,s.getsockname()[0], message[1], (message[0][1][0]+message[0][1][1]), message[0][0]))
     s.sendall(message.encode("utf-8"))
     s.close()
 
-
 if __name__ == '__main__':
-    while True:
-        update_ip()
-        time.sleep(3)
+    main()

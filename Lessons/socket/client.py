@@ -2,7 +2,7 @@ import socket
 
 s=socket.socket()
 
-s.connect(('192.168.0.88',49845))
+s.connect(('localhost',5000))
 
 s.sendall(b'Hello')
 

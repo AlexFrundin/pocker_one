@@ -12,10 +12,11 @@ class EchoServer(socketserver.DatagramRequestHandler):
         client_ip = self.client_address[0]
         if data.startswith('give_ip'):
             print('show myself')
-            #with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as tcp_sock:
-                #tcp_sock.connect((client_ip, PORT))
-                #tcp_sock.send('show\n'.encode('UTF-8'))
-        elif data.startswith('get updates'):
+            PORT =int(data.split(' ')[1])
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as tcp_sock:
+                tcp_sock.connect((client_ip, PORT))
+                tcp_sock.send('show\n'.encode('UTF-8'))
+            '''        elif data.startswith('get updates'):
             print('get updates FROM ')
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as tcp_sock:
                 tcp_sock.connect((client_ip, PORT))
@@ -27,8 +28,8 @@ class EchoServer(socketserver.DatagramRequestHandler):
                     print(part)
                     part = tcp_sock.recv(1024)
 
-                file.close()
-        #print(self.request)
+                    file.close()'''
+        print(self.request)
 
 
 def run_echo_server():
