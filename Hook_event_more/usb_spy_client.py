@@ -80,7 +80,7 @@ def g_client(message):
     try:
         client(message)
     except:
-        global IP_ADRESS_SERVER_USB
+        global IP_ADDRESS_SERVER_USB
         global PORT_SERVER_USB
         IP_ADDRESS_SERVER_USB, PORT_SERVER_USB=update_ip()
         client(message)
