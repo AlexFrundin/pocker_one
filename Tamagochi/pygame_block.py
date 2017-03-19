@@ -1,6 +1,6 @@
 import pygame
 
-BLOCK_W=20
+BLOCK_W=30
 BLOCK_H=20
 BLOCK_COLOR='#343245'
 

@@ -123,7 +123,7 @@ def main():
         one.update(left, right,up,down,all_block)
 
         for e in all_object:
-            
+
             display_game.blit(e.image, camera.apply(e))
         #all_object.draw(display_game)
 
