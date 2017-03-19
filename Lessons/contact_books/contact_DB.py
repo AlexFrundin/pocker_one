@@ -33,7 +33,7 @@ def loadToDB(obj):
     cur.executescript("""DROP TABLE if exists CONTACT;
                     CREATE TABLE Contact
                     (id integer primary key autoincrement,
-                     name varchar(20),
+                     name varchar(20) unique,
                      number_ varchar(10));
 
     """)
