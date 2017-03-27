@@ -14,7 +14,7 @@ class TreeUSB(QMainWindow):
         tree.setHeaderLabel(rootDir)
         for dirName, subDir, fileName in walk(rootDir):
             item = QTreeWidgetItem(tree, [subDir])
-            #print(subDir)
+
 
 
         self.setCentralWidget(tree)

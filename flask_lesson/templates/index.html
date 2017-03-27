@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Chat</title>
+</head>
+<body>
+  <h1>My_Blog</h1>
+  <p>Hello, {{name}}</p>
+  <p style="color:red"> {{message}}</p>
+  {% block content %}
+  <p><a href='/add'>Add</a></p>
+  <!--{{message}}-->
+  {% for message in messages %}
+  <p><b> {{message.author}}:</b>{{message.message}}</p>
+  {% endfor %}
+  {% endblock %}
+  {% include  'footer.html' %}
+  {% block footer %}
+  &copy; 2017
+  {% endblock %}
+</body>
+</html>

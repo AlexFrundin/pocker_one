@@ -1,0 +1,9 @@
+{% extends 'index.html'%}
+{% block content%}
+<p> Add message </p>
+<form method="post">
+  <input type='text' name='author' placeholder="Author" value={{author}}>
+  <input type='text' name='message' placeholder="Message" value={{message}}>
+  <p><input type='submit' value='ok'></p>
+</form>
+{% endblock %}
