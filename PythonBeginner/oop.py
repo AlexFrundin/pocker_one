@@ -2,7 +2,6 @@
 
 class Square():
     def __init__(self,w,h):
-
         self.W=w
         self.H=h
 
@@ -11,6 +10,7 @@ class Square():
             return("Square")
         else:
             return ("Rectangle")
+
 
 
 a=Square(30,40)
