@@ -1,0 +1,8 @@
+{%extends 'index.html'%}
+{%block content%}
+  <<ul class="">
+      {%for product in products%}
+      <<li class=""><<a  href="/products/detail/{{product.pk}}"></a>{{product.name}}</li>
+      {%endfor%}
+  </ul>
+{%endblock%}
