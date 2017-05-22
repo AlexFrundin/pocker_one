@@ -1,8 +1,21 @@
 {%extends 'index.html'%}
 {%block content%}
-  <<ul class="">
-      {%for product in products%}
-      <<li class=""><<a  href="/products/detail/{{product.pk}}"></a>{{product.name}}</li>
+  <ul class="">
+      {%for product in products.object_list%}
+      <li class="">
+        <a  href="{{product.get_absolute_url}}">{{product.name}}</a>
+      </li>
       {%endfor%}
   </ul>
+  <p>
+  <a href="{url 'show_all'}">&lt;&lt;</a>
+  {%if products.has_previous%}
+  <a href="{url 'show_all'}?page={{products.previous_page_number}}">&lt;</a>
+  {%endif%}
+  {{products.number}} of {{products.paginator.num_pages}}
+  {%if products.has_next%}
+  <a href="{url 'show_all'}?page={{products.next_page_number}}">&gt;</a>
+  {%endif%}
+  <a href="{url 'show_all'}?page={{products.paginator.num_pages}}">&gt;&gt;</a>
+</p>
 {%endblock%}

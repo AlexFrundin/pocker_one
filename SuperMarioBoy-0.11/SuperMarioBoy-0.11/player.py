@@ -47,36 +47,36 @@ class Player(sprite.Sprite):
             boltAnim.append((anim, ANIMATION_DELAY))
         self.boltAnimRight = pyganim.PygAnimation(boltAnim)
         self.boltAnimRight.play()
-#        Анимация движения влево        
+#        Анимация движения влево
         boltAnim = []
         for anim in ANIMATION_LEFT:
             boltAnim.append((anim, ANIMATION_DELAY))
         self.boltAnimLeft = pyganim.PygAnimation(boltAnim)
         self.boltAnimLeft.play()
-        
+
         self.boltAnimStay = pyganim.PygAnimation(ANIMATION_STAY)
         self.boltAnimStay.play()
         self.boltAnimStay.blit(self.image, (0, 0)) # По-умолчанию, стоим
-        
+
         self.boltAnimJumpLeft= pyganim.PygAnimation(ANIMATION_JUMP_LEFT)
         self.boltAnimJumpLeft.play()
-        
+
         self.boltAnimJumpRight= pyganim.PygAnimation(ANIMATION_JUMP_RIGHT)
         self.boltAnimJumpRight.play()
-        
+
         self.boltAnimJump= pyganim.PygAnimation(ANIMATION_JUMP)
         self.boltAnimJump.play()
-        
+
 
     def update(self, left, right, up, platforms):
-        
+
         if up:
             if self.onGround: # прыгаем, только когда можем оттолкнуться от земли
                 self.yvel = -JUMP_POWER
             self.image.fill(Color(COLOR))
             self.boltAnimJump.blit(self.image, (0, 0))
-               
-                       
+
+
         if left:
             self.xvel = -MOVE_SPEED # Лево = x- n
             self.image.fill(Color(COLOR))
@@ -84,7 +84,7 @@ class Player(sprite.Sprite):
                 self.boltAnimJumpLeft.blit(self.image, (0, 0))
             else:
                 self.boltAnimLeft.blit(self.image, (0, 0))
- 
+
         if right:
             self.xvel = MOVE_SPEED # Право = x + n
             self.image.fill(Color(COLOR))
@@ -92,23 +92,23 @@ class Player(sprite.Sprite):
                 self.boltAnimJumpRight.blit(self.image, (0, 0))
             else:
                 self.boltAnimRight.blit(self.image, (0, 0))
-         
+
         if not(left or right): # стоим, когда нет указаний идти
             self.xvel = 0
             if not up:
                 self.image.fill(Color(COLOR))
                 self.boltAnimStay.blit(self.image, (0, 0))
-            
+
         if not self.onGround:
             self.yvel +=  GRAVITY
-            
-        self.onGround = False; # Мы не знаем, когда мы на земле((   
+
+        self.onGround = False; # Мы не знаем, когда мы на земле((
         self.rect.y += self.yvel
         self.collide(0, self.yvel, platforms)
 
         self.rect.x += self.xvel # переносим свои положение на xvel
         self.collide(self.xvel, 0, platforms)
-   
+
     def collide(self, xvel, yvel, platforms):
         for p in platforms:
             if sprite.collide_rect(self, p): # если есть пересечение платформы с игроком
@@ -127,4 +127,3 @@ class Player(sprite.Sprite):
                 if yvel < 0:                      # если движется вверх
                     self.rect.top = p.rect.bottom # то не движется вверх
                     self.yvel = 0                 # и энергия прыжка пропадает
-       

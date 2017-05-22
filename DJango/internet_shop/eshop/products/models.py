@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.expressions import F
+from django.urls import reverse
 
 CATEGORIES=(
 (0,"AUTO"),
@@ -9,7 +10,7 @@ CATEGORIES=(
 # Create your models here.
 class MyManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset(price__gt=2000)
+        return super().get_queryset().filter(price__gt=2000)
 
     def set_price(self, k):
         super().get_queryset().update(price=F('price')*k)
@@ -34,6 +35,9 @@ class Product(models.Model):
 
     def get_price(self):
         return "{} uah".format(self.price)
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={"product_id":self.pk})
 
 class Feedback(models.Model):
     product= models.ForeignKey(Product)
