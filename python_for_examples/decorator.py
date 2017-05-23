@@ -1,36 +1,27 @@
-#не нравится использования print как вывод инфо, хочу использовать yield
-import os
-defacto = ['Г-жа ','Г-н ']
+defacto = {'Ж':'Г-жа ','М':'Г-н '}
 
+# def test(fn):
+#     def wrapp():
+#         for item in sorted(fn(), key=lambda x: int(x[-1])):
+#                 print (defacto[item[-2]]+' '.join(item[:-2]))
+#     return wrapp
 def test(fn):
-    def wrapp():
-        for item in sorted(fn(), key=lambda x: int(x[-1])):
-            if item[-2] == 'М':
-                print (defacto[1]+' '.join(item[:-2]))
-            else:
-                print (defacto[0]+' '.join(item[:-2]))
-    return wrapp
+    def wrap():
+        return [(defacto[item[-2]]+' '.join(item[:-2])) for item in sorted(fn(), key=lambda x:int(x[-1]))]
+    return wrap
 
 @test
 def my_input():
-    info=[]
-    for _ in range(int(input())):
-        info.append(input().split())
-    return info
-
+    return [input().split() for _ in range(int(input()))]
 @test
 def my_file():
     name = input("Enter name to file->")
-    info=[]
-    if os.path.isfile(name):
-        with open(name, 'r') as f:
-            for _ in range(int(f.readline())):
-                info.append(f.readline().split())
-        return info
+    with open(name, 'r') as f:
+        return [f.readline().strip().split() for _ in range(int(f.readline()))]
 
 if __name__=='__main__':
-    n = int(input("Enter ->"))
+    n = int(input("Enter 1-for console 2-for file->"))
     if n==1:
-        my_input()
+        print(my_input())
     else:
-        my_file()
+        print(my_file())

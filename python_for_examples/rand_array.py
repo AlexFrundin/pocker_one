@@ -1,12 +1,10 @@
+import turtle
 import random
-mas=[]
-n=10
-for i in range(n):
-    value=random.randint(1, 100)
-    mas.append([value,i])
-
-print("mas= ",mas)
-
-mas.sort(lambda x: x[1],reverse=True)
-
-print(mas)
+i=0
+s=4
+pen=turtle.Pen()
+while i<s:
+    pen.forward(100)
+    pen.left(90)
+    i=i+1
+input()
