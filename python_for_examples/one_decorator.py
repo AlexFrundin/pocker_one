@@ -1,10 +1,5 @@
 defacto = {'Ж':'Г-жа ','М':'Г-н '}
 
-# def test(fn):
-#     def wrapp():
-#         for item in sorted(fn(), key=lambda x: int(x[-1])):
-#                 print (defacto[item[-2]]+' '.join(item[:-2]))
-#     return wrapp
 def test(fn):
     def wrap():
         return [(defacto[item[-2]]+' '.join(item[:-2])) for item in sorted(fn(), key=lambda x:int(x[-1]))]
@@ -20,8 +15,8 @@ def my_file():
         return [f.readline().strip().split() for _ in range(int(f.readline()))]
 
 if __name__=='__main__':
-    n = int(input("Enter 1-for console 2-for file->"))
+    n = int(input("Enter 1-from console, other digital -from file->"))
     if n==1:
-        print(my_input())
+        print('\n'.join(my_input()))
     else:
-        print(my_file())
+        print('\n'.join(my_file()))
