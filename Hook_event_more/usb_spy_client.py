@@ -53,7 +53,8 @@ def update_ip():
             flood.sendto("give_ip {}".format(socket.gethostbyname(socket.gethostname())).encode('utf-8'),('192.168.3.255',PORT_UDP))
             ip_, port_ =server_ip()
             if ip_ is not None:
-                return ip_, port_
+                print(ip_, port_)
+                return ip_, int(port_)
 
 #waiting for connected or disconnected devices
 def main():
@@ -92,8 +93,8 @@ def client(message):
     #global IP, PORT
     s=socket.socket()
     name=socket.gethostname()
-    s.connect((IP_ADDRESS_SERVER_USB,int(PORT_SERVER_USB)))
-    message=("{}||{}||{}||{}||{}||".format(name,s.getsockname()[0], message[1], (message[0][1][1]+" ("+message[0][1][0]+")"), message[0][0]))
+    s.connect((IP_ADDRESS_SERVER_USB,PORT_SERVER_USB))
+    message=("{}||{}||{}||{}||{}||".format(message[1], name,s.getsockname()[0],  (message[0][1][1]+" ("+message[0][1][0]+")"), message[0][0]))
     s.sendall(message.encode("utf-8"))
 
     s.close()

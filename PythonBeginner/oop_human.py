@@ -11,15 +11,11 @@ def load(name_file):
     if not os.path.exists(name_file):
         print("No file")
         return
-    f=open(name_file, "r")
-    temp_group=f.readlines()
-    f.close()
     group=[]
-    for human in temp_group:
-        group.append(human.split(","))
-    print(group)
-
-
+    with open(name_file, "r") as f:
+        for line in f.readlines():
+            group.append(Human(*(line.rstrip().split(','))))
+    return group
 
 def create_group():
     len_group=int(input("Сколько в группе человек?"))
@@ -39,8 +35,8 @@ def create_group():
 class Human():
     def __init__(self, name, age, height):
         self.name=name
-        self.age=age
-        self.height=height
+        self.age=int(age)
+        self.height=int(height)
 
     def __str__(self):
         return ("name={}\nage={}\nheight={}\n".format(self.name, self.age, self.height))
@@ -54,7 +50,7 @@ class Human():
 answer=input("вы хотите загрузить из файла? 1- да")
 
 if answer=="1":
-    load("Group.txt")
+    group=load("Group.txt")
 else:
     group=create_group()
 
@@ -62,7 +58,6 @@ else:
 
 
 
-'''for item in group:
+for item in group:
     if item.age>18:
         print(item)
-'''
